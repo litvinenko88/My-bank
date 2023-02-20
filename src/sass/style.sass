@@ -1,0 +1,238 @@
+@import 'reset.css'
+@import 'normalize.css'
+
+$green: #39913F
+$text-color: #3e3a3a
+
+html
+   font-size: 62.5%
+body
+   font-family: 'Roboto'
+   font-size: 1.8rem
+   font-weight: 400
+   background: #c4c3c3
+   &::-webkit-scrollbar
+      width: 5px
+   &::-webkit-scrollbar-track
+      background: #fff
+   &::-webkit-scrollbar-thumb
+      background: $green
+      border-radius: 3px
+.hidden
+   display: none
+
+.header
+   background: #ffffff
+   align-items: center
+   padding-right: 3rem
+   display: flex
+   justify-content: space-between
+   &__users-greeting
+      font-size: 2rem
+      color: $green
+   &__logo
+      width: 20rem
+   &__login-input
+      width: 13rem
+      margin-right: 1rem
+      padding: .5rem 1rem
+      border: 1px solid $green
+      border-radius: 3px
+   &__btn-login
+      background: $green
+      border: none
+      padding: .6rem 3rem
+      border-radius: 3px
+      color: #fff
+      &:active
+         transform: scale(0.98)
+         box-shadow: 3px 2px 15px 1px rgba(0, 0, 0, 0.24)
+.wrapper-content
+   margin: 30px
+   display: grid
+   grid-template-columns: repeat(12, 1fr)
+   grid-auto-rows: minmax(30px, 60px)
+   grid-gap: 2rem
+.account-details
+   grid-column: 1 / 13
+   display: flex
+   justify-content: space-between
+   &__current-balance-text
+      font-size: 3rem
+      font-weight: 600
+      color: $text-color
+      margin-bottom: 1rem
+   &__current-date
+      color: $text-color
+      font-size: 2rem
+   &__current-balance
+      font-size: 5rem
+      font-weight: 600
+      color: $text-color
+.display-transaction
+   padding: .5rem 0rem
+   border-radius: 8px
+   background: #f4f2f2
+   box-shadow: 0 0 5px 2px #7e7e7e
+   overflow: auto
+   grid-column: 1 / 9
+   grid-row: 2 / 11
+   &::-webkit-scrollbar
+      width: 5px
+   &::-webkit-scrollbar-track
+      background: #fff
+   &::-webkit-scrollbar-thumb
+      background: $green
+      border-radius: 3px
+   &__row
+      padding: 1rem 5rem
+      margin-bottom: .15rem
+      align-items: center
+      border: 1px solid $green
+      display: flex
+      justify-content: space-between
+   &__deposit
+      background: $green
+      padding: 1rem
+      border-radius: 2rem
+      font-size: 1.4rem
+      font-weight: 400
+      color: #fff
+   &__write-offs
+      background: #d88405
+      padding: 1rem
+      border-radius: 2rem
+      font-size: 1.4rem
+      font-weight: 400
+      color: #fff
+   &__date-operation
+      font-size: 1.4rem
+      color: $text-color
+   &__amount
+      font-size: 2.4rem
+      font-weight: 500
+      color: $text-color
+
+.credit
+   padding: 3rem 5rem
+   border-radius: 8px
+   background: linear-gradient(150deg, #14ad84 2%, #39ff00 98%)
+   box-shadow: 0 0 5px 2px #7e7e7e
+   grid-column: 9 / 13
+   grid-row: 2 / 5
+   &__action-name
+      margin-bottom: 3rem
+      color: #fff
+      font-size: 2rem
+      font-weight: 500
+   &__input
+      width: 40%
+      padding: .5rem 1rem
+      border-radius: 3px
+      border: 1px solid $green
+   &__btn-credit
+      padding: .7rem 2rem
+      margin-bottom: 1rem
+      border-radius: 3px
+      border: none
+      font-size: 1.4rem
+      &:active
+         transform: scale(0.98)
+         box-shadow: 3px 2px 15px 1px rgba(0, 0, 0, 0.24)
+   &__text
+      font-size: 1.6rem
+      font-weight: 500
+      color: #fff
+.translation
+   padding: 3rem 5rem
+   border-radius: 8px
+   background: linear-gradient(10deg, rgba(28,100,186,1) 25%, rgba(0,255,252,1) 100%)
+   box-shadow: 0 0 5px 2px #7e7e7e
+   grid-column: 9 / 13
+   grid-row: 5 / 8
+   &__action-name
+      margin-bottom: 3rem
+      color: #fff
+      font-size: 2rem
+      font-weight: 500
+   &__form-container
+      display: flex
+   &__input
+      width: 80%
+      padding: .5rem 1rem
+      border-radius: 3px
+      border: 1px solid $green
+      margin-bottom: 1rem
+   &__text
+      font-size: 1.6rem
+      font-weight: 500
+      color: #fff
+      margin-bottom: 2rem
+   &__btn-credit
+      float: right
+      padding: .7rem 2rem
+      margin-bottom: 1rem
+      border-radius: 3px
+      border: none
+      font-size: 1.4rem
+      margin-right: 2rem
+      &:active
+         transform: scale(0.98)
+         box-shadow: 3px 2px 15px 1px rgba(0, 0, 0, 0.24)
+.close-account
+   padding: 3rem 5rem
+   border-radius: 8px
+   background: linear-gradient(90deg, rgba(255,63,0,1) 16%, rgba(173,20,34,1) 68%)
+   box-shadow: 0 0 5px 2px #7e7e7e
+   grid-column: 9 / 13
+   grid-row: 8 / 11
+   &__action-name
+      margin-bottom: 3rem
+      color: #fff
+      font-size: 2rem
+      font-weight: 500
+   &__form-container
+      display: flex
+   &__input
+      width: 80%
+      padding: .5rem 1rem
+      border-radius: 3px
+      border: 1px solid $green
+      margin-bottom: 1rem
+   &__text
+      font-size: 1.6rem
+      font-weight: 500
+      color: #fff
+      margin-bottom: 2rem
+   &__btn-credit
+      float: right
+      padding: .7rem 2rem
+      margin-bottom: 1rem
+      border-radius: 3px
+      border: none
+      font-size: 1.4rem
+      margin-right: 2rem
+      &:active
+         transform: scale(0.98)
+         box-shadow: 3px 2px 15px 1px rgba(0, 0, 0, 0.24)
+.account-summary
+   padding: 3rem
+   grid-column: 1 / 13
+   display: flex
+   align-items: center
+   justify-content: space-between
+   &__text
+      color: $text-color
+      font-size: 2rem
+      font-weight: 600
+      text-transform: uppercase
+   &__sorting-btn
+      background: none
+      border: none
+      color: $green
+      font-size: 2rem
+      font-weight: 600
+      cursor: pointer
+   &__exiting-app
+      font-size: 1.4rem
+      color: $text-color

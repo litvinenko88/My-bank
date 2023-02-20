@@ -1,12 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
-</head>
-<body>
-   
-</body>
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="src/fonts/fonts.css">
+      <link rel="stylesheet" href="src/css/style.css">
+      <title>Мой банк</title>
+   </head>
+   <body>
+      <section class="shared-container">
+         <header class="header">
+            <img class="header__logo" src="src/icons/my bank.png" alt="Логотип">
+            <h1 class="header__users-greeting">Рады, что вы снова с нами, <span class="header__user-name">Николай</span>
+            </h1>
+            <form class="header__login" action="">
+               <input type="tel" class="header__nike-name header__login-input" placeholder="Телефон" required>
+               <input type="password" class="header__password header__login-input" placeholder="Пароль" required>
+               <button class="header__btn-login">Войти</button>
+            </form>
+         </header>
+
+
+         <div class="wrapper-content ">
+            <div class="account-details">
+               <div class="">
+                  <h2 class="account-details__current-balance-text">Текущий баланс</h2>
+                  <p class="account-details__current-date">На 18.02.2023</p>
+               </div>
+               <div class="">
+                  <h2 class="account-details__current-balance">10 000 ₽</h2>
+               </div>
+            </div>
+
+            <div class="display-transaction">
+               <div class="display-transaction__row">
+                  <h2 class="display-transaction__deposit">Пополнение</h2>
+                  <h2 class="display-transaction__date-operation">18.02.2023</h2>
+                  <h2 class="display-transaction__amount">500₽</h2>
+               </div>
+               <div class="display-transaction__row">
+                  <h2 class="display-transaction__write-offs">Списание</h2>
+                  <h2 class="display-transaction__date-operation">18.02.2023</h2>
+                  <h2 class="display-transaction__amount">250₽</h2>
+               </div>
+            </div>
+
+            <div class="credit">
+               <h2 class="credit__action-name">Запросить займ</h2>
+               <form class="credit__loan-form">
+                  <div class="">
+                     <input class="credit__input" type="text" required>
+                     <button class="credit__btn-credit">Запросить</button>
+                     <p class="credit__text">Сумма</p>
+                  </div>
+               </form>
+            </div>
+
+            <div class="translation">
+               <h2 class="translation__action-name">Перевести деньги</h2>
+               <form class="translation__transfer-form">
+                  <div class="translation__form-container">
+                     <div class="">
+                        <input class="translation__input" type="text" required>
+                        <p class="translation__text">Телефон получателя</p>
+                     </div>
+                     <div class="">
+                        <input class="translation__input" type="text" required>
+                        <p class="translation__text">Сумма</p>
+                     </div>
+                  </div>
+                  <button class="translation__btn-credit">Перевести</button>
+               </form>
+            </div>
+
+            <div class="close-account">
+               <h2 class="close-account__action-name">Закрыть счет</h2>
+               <form class="close-account__transfer-form">
+                  <div class="close-account__form-container">
+                     <div class="">
+                        <input class="close-account__input" type="text" required>
+                        <p class="close-account__text">Подтвертите телефон</p>
+                     </div>
+                     <div class="">
+                        <input class="close-account__input" type="text" required>
+                        <p class="close-account__text">Подтвердите пароль</p>
+                     </div>
+                  </div>
+                  <button class="close-account__btn-credit">Закрыть</button>
+               </form>
+            </div>
+
+            <div class="account-summary">
+               <h2 class="account-summary__text">Получено <span class="receiving">10 000 ₽</span></h2>
+               <h2 class="account-summary__text">Потрачено <span class="spent">10 000 ₽</span></h2>
+               <h2 class="account-summary__text">Процентов <span class="percent">10 000 ₽</span></h2>
+               <button class="account-summary__sorting-btn">Отсортировать ↑</button>
+               <h2 class="account-summary__exiting-app">Выход из приложения через <span class="time">05:00</span></h2>
+            </div>
+
+         </div>
+      </section>
+      <script src="src/js/script.js"></script>
+   </body>
 </html>
