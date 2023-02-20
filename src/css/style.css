@@ -46,7 +46,7 @@ body::-webkit-scrollbar-thumb {
 .header__users-greeting-forma {
   display: none;
   font-size: 2rem;
-  line-height: 2.5rem;
+  line-height: 3rem;
   color: #39913F;
   margin-bottom: 5rem;
 }
@@ -62,12 +62,24 @@ body::-webkit-scrollbar-thumb {
 }
 .header__btn-login {
   background: #39913F;
+  margin-right: 2rem;
   border: none;
   padding: 0.6rem 3rem;
   border-radius: 3px;
   color: #fff;
 }
 .header__btn-login:active {
+  transform: scale(0.98);
+  box-shadow: 3px 2px 15px 1px rgba(0, 0, 0, 0.24);
+}
+.header__btn-login-close {
+  background: #39913F;
+  border: none;
+  padding: 0.6rem 3rem;
+  border-radius: 3px;
+  color: #fff;
+}
+.header__btn-login-close:active {
   transform: scale(0.98);
   box-shadow: 3px 2px 15px 1px rgba(0, 0, 0, 0.24);
 }
@@ -288,8 +300,12 @@ body::-webkit-scrollbar-thumb {
 .account-summary__text {
   color: #3e3a3a;
   font-size: 2rem;
+  line-height: 2rem;
   font-weight: 600;
   text-transform: uppercase;
+}
+.account-summary__text br {
+  display: none;
 }
 .account-summary__sorting-btn {
   background: none;
@@ -534,5 +550,8 @@ body::-webkit-scrollbar-thumb {
   }
   .account-summary__text {
     text-align: center;
+  }
+  .account-summary br {
+    display: block;
   }
 }/*# sourceMappingURL=style.css.map */

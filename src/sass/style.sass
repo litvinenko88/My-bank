@@ -38,7 +38,7 @@ body
    &__users-greeting-forma
       display: none
       font-size: 2rem
-      line-height: 2.5rem
+      line-height: 3rem
       color: $green
       margin-bottom: 5rem
    &__logo
@@ -50,6 +50,16 @@ body
       border: 1px solid $green
       border-radius: 3px
    &__btn-login
+      background: $green
+      margin-right: 2rem
+      border: none
+      padding: .6rem 3rem
+      border-radius: 3px
+      color: #fff
+      &:active
+         transform: scale(0.98)
+         box-shadow: 3px 2px 15px 1px rgba(0, 0, 0, 0.24)
+   &__btn-login-close
       background: $green
       border: none
       padding: .6rem 3rem
@@ -233,8 +243,11 @@ body
    &__text
       color: $text-color
       font-size: 2rem
+      line-height: 2rem
       font-weight: 600
       text-transform: uppercase
+      br
+         display: none
    &__sorting-btn
       background: none
       border: none
@@ -421,3 +434,5 @@ body
          display: none
       &__text
          text-align: center
+      br
+         display: block
