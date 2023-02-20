@@ -35,6 +35,12 @@ body
       font-size: 2rem
       line-height: 2.5rem
       color: $green
+   &__users-greeting-forma
+      display: none
+      font-size: 2rem
+      line-height: 2.5rem
+      color: $green
+      margin-bottom: 5rem
    &__logo
       width: 20rem
    &__login-input
@@ -52,7 +58,6 @@ body
       &:active
          transform: scale(0.98)
          box-shadow: 3px 2px 15px 1px rgba(0, 0, 0, 0.24)
-
 .wrapper-content
    margin: 3rem
    display: grid
@@ -303,6 +308,8 @@ body
    .display-transaction
       grid-column: 1 / 13
       grid-row: 2 / 7
+      &__row
+         padding: 1.5rem 3rem
    .credit
       grid-column: 1 / 13
       grid-row: 7 / 9
@@ -376,5 +383,41 @@ body
       transition-duration: .25s
    .menu__item
       transition-duration: .25s
-   
 @media screen and (max-width: 576px)
+   .wrapper-content
+      grid-gap: 1rem
+      margin: 2rem 1rem
+   .header
+      &__users-greeting-forma
+         display: block
+      &__users-greeting
+         display: none
+   .account-details
+      &__current-balance-text
+         font-size: 1.8rem
+      &__current-date
+         font-size: 1.4rem
+      &__current-balance
+         font-size: 3rem
+   .display-transaction
+      &__row
+         padding: 1.5rem 2rem
+      &__deposit
+         font-size: 1.2rem
+      &__write-offs
+         font-size: 1.2rem
+      &__date-operation
+         font-size: 1.2rem
+      &__amount
+         font-size: 2rem
+   .translation
+      grid-column: 1 / 13
+      grid-row: 9 / 12
+   .close-account
+      grid-column: 1 / 13
+      grid-row: 12 / 15
+   .account-summary
+      &__sorting-btn
+         display: none
+      &__text
+         text-align: center

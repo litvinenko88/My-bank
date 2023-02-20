@@ -43,6 +43,13 @@ body::-webkit-scrollbar-thumb {
   line-height: 2.5rem;
   color: #39913F;
 }
+.header__users-greeting-forma {
+  display: none;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  color: #39913F;
+  margin-bottom: 5rem;
+}
 .header__logo {
   width: 20rem;
 }
@@ -384,6 +391,9 @@ body::-webkit-scrollbar-thumb {
     grid-column: 1/13;
     grid-row: 2/7;
   }
+  .display-transaction__row {
+    padding: 1.5rem 3rem;
+  }
   .credit {
     grid-column: 1/13;
     grid-row: 7/9;
@@ -474,5 +484,55 @@ body::-webkit-scrollbar-thumb {
   }
   .menu__item {
     transition-duration: 0.25s;
+  }
+}
+@media screen and (max-width: 576px) {
+  .wrapper-content {
+    grid-gap: 1rem;
+    margin: 2rem 1rem;
+  }
+  .header__users-greeting-forma {
+    display: block;
+  }
+  .header__users-greeting {
+    display: none;
+  }
+  .account-details__current-balance-text {
+    font-size: 1.8rem;
+  }
+  .account-details__current-date {
+    font-size: 1.4rem;
+  }
+  .account-details__current-balance {
+    font-size: 3rem;
+  }
+  .display-transaction__row {
+    padding: 1.5rem 2rem;
+  }
+  .display-transaction__deposit {
+    font-size: 1.2rem;
+  }
+  .display-transaction__write-offs {
+    font-size: 1.2rem;
+  }
+  .display-transaction__date-operation {
+    font-size: 1.2rem;
+  }
+  .display-transaction__amount {
+    font-size: 2rem;
+  }
+  .translation {
+    grid-column: 1/13;
+    grid-row: 9/12;
+  }
+  .close-account {
+    grid-column: 1/13;
+    grid-row: 12/15;
+  }
+  .account-summary__sorting-btn {
+    display: none;
+  }
+  .account-summary__text {
+    text-align: center;
   }
 }/*# sourceMappingURL=style.css.map */
