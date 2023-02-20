@@ -12,9 +12,14 @@
       <section class="shared-container">
          <header class="header">
             <img class="header__logo" src="src/icons/my bank.png" alt="Логотип">
-            <h1 class="header__users-greeting">Рады, что вы снова с нами, <span class="header__user-name">Николай</span>
-            </h1>
-            <form class="header__login" action="">
+            <h1 class="header__users-greeting">Рады, что вы снова с нами, <span class="header__user-name">Николай</span></h1>
+
+            <input class="hidden" id="menu__toggle" type="checkbox" />
+            <label class="menu__btn " for="menu__toggle">
+               <span class="span-menu"></span>
+            </label>
+            <form class="header__login-form login-form" action="">
+               <h2 class="header__login-text">Войдите в аккаунт</h2>
                <input type="tel" class="header__nike-name header__login-input" placeholder="Телефон" required>
                <input type="password" class="header__password header__login-input" placeholder="Пароль" required>
                <button class="header__btn-login">Войти</button>
@@ -63,7 +68,7 @@
                   <div class="translation__form-container">
                      <div class="">
                         <input class="translation__input" type="text" required>
-                        <p class="translation__text">Телефон получателя</p>
+                        <p class="translation__text">Телефон</p>
                      </div>
                      <div class="">
                         <input class="translation__input" type="text" required>
@@ -80,11 +85,11 @@
                   <div class="close-account__form-container">
                      <div class="">
                         <input class="close-account__input" type="text" required>
-                        <p class="close-account__text">Подтвертите телефон</p>
+                        <p class="close-account__text">Телефон</p>
                      </div>
                      <div class="">
                         <input class="close-account__input" type="text" required>
-                        <p class="close-account__text">Подтвердите пароль</p>
+                        <p class="close-account__text">Пароль</p>
                      </div>
                   </div>
                   <button class="close-account__btn-credit">Закрыть</button>

@@ -28,19 +28,26 @@ body::-webkit-scrollbar-thumb {
 .header {
   background: #ffffff;
   align-items: center;
-  padding-right: 3rem;
   display: flex;
   justify-content: space-between;
 }
+.header__login-text {
+  display: none;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #3e3a3a;
+  margin-bottom: 4rem;
+}
 .header__users-greeting {
   font-size: 2rem;
+  line-height: 2.5rem;
   color: #39913F;
 }
 .header__logo {
   width: 20rem;
 }
 .header__login-input {
-  width: 13rem;
+  width: 30%;
   margin-right: 1rem;
   padding: 0.5rem 1rem;
   border: 1px solid #39913F;
@@ -59,7 +66,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .wrapper-content {
-  margin: 30px;
+  margin: 3rem;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: minmax(30px, 60px);
@@ -88,7 +95,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 .display-transaction {
-  padding: 0.5rem 0rem;
   border-radius: 8px;
   background: #f4f2f2;
   box-shadow: 0 0 5px 2px #7e7e7e;
@@ -107,8 +113,8 @@ body::-webkit-scrollbar-thumb {
   border-radius: 3px;
 }
 .display-transaction__row {
-  padding: 1rem 5rem;
-  margin-bottom: 0.15rem;
+  padding: 1.5rem 5rem;
+  margin-bottom: 1.5px;
   align-items: center;
   border: 1px solid #39913F;
   display: flex;
@@ -281,7 +287,7 @@ body::-webkit-scrollbar-thumb {
 .account-summary__sorting-btn {
   background: none;
   border: none;
-  color: #39913F;
+  color: #3e3a3a;
   font-size: 2rem;
   font-weight: 600;
   cursor: pointer;
@@ -289,4 +295,184 @@ body::-webkit-scrollbar-thumb {
 .account-summary__exiting-app {
   font-size: 1.4rem;
   color: #3e3a3a;
+}
+
+.receiving {
+  color: #39913F;
+}
+
+.spent {
+  color: #d88405;
+}
+
+.percent {
+  color: #39913F;
+}
+
+@media screen and (max-width: 1200px) {
+  html {
+    font-size: 56%;
+  }
+}
+@media screen and (max-width: 988px) {
+  html {
+    font-size: 50%;
+  }
+  .display-transaction {
+    grid-column: 1/8;
+    grid-row: 2/11;
+  }
+  .credit {
+    padding: 2rem 4rem;
+    grid-column: 8/13;
+    grid-row: 2/5;
+  }
+  .translation {
+    padding: 3rem 5rem;
+    grid-column: 8/13;
+    grid-row: 5/8;
+  }
+  .close-account {
+    padding: 3rem 5rem;
+    grid-column: 8/13;
+    grid-row: 8/11;
+  }
+  .header {
+    padding-right: 2rem;
+  }
+  .header__users-greeting {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+  .header__logo {
+    width: 16rem;
+  }
+  .account-summary__text {
+    font-size: 1.4rem;
+  }
+  .account-summary__sorting-btn {
+    font-size: 1.4rem;
+  }
+  .account-summary__exiting-app {
+    font-size: 1.2rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .header {
+    justify-content: flex-start;
+  }
+  .header__login-text {
+    display: block;
+  }
+  .header__login-input {
+    margin-bottom: 4rem;
+  }
+  .account-details__current-balance-text {
+    font-size: 2.5rem;
+  }
+  .account-details__current-date {
+    font-size: 1.5rem;
+  }
+  .account-details__current-balance {
+    font-size: 4rem;
+  }
+  .wrapper-content {
+    grid-gap: 1rem;
+    margin: 3rem 2rem;
+  }
+  .display-transaction {
+    grid-column: 1/13;
+    grid-row: 2/7;
+  }
+  .credit {
+    grid-column: 1/13;
+    grid-row: 7/9;
+  }
+  .translation {
+    grid-column: 7/13;
+    grid-row: 9/12;
+  }
+  .translation__input {
+    width: 70%;
+  }
+  .close-account {
+    grid-column: 1/7;
+    grid-row: 9/12;
+  }
+  .close-account__input {
+    width: 70%;
+  }
+  .account-summary__exiting-app {
+    display: none;
+  }
+  #menu__toggle {
+    opacity: 0;
+  }
+  .menu__btn {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .menu__btn > .span-menu,
+  .menu__btn > .span-menu::before,
+  .menu__btn > .span-menu::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #39913F;
+  }
+  .menu__btn > .span-menu::before {
+    content: "";
+    top: -8px;
+  }
+  .menu__btn > .span-menu::after {
+    content: "";
+    top: 8px;
+  }
+  .login-form {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100%;
+    margin: 0;
+    padding: 80px 0;
+    text-align: center;
+    background-color: #ECEFF1;
+    box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.2);
+  }
+  #menu__toggle:checked ~ .menu__btn > .span-menu {
+    transform: rotate(45deg);
+  }
+  #menu__toggle:checked ~ .menu__btn > .span-menu::before {
+    top: 0;
+    transform: rotate(0);
+  }
+  #menu__toggle:checked ~ .menu__btn > .span-menu::after {
+    top: 0;
+    transform: rotate(90deg);
+  }
+  #menu__toggle:checked ~ .login-form {
+    display: block;
+    right: 0;
+  }
+  .menu__btn > .span-menu,
+  .menu__btn > .span-menu::before,
+  .menu__btn > .span-menu::after {
+    transition-duration: 0.25s;
+  }
+  .menu__box {
+    transition-duration: 0.25s;
+  }
+  .menu__item {
+    transition-duration: 0.25s;
+  }
 }/*# sourceMappingURL=style.css.map */
