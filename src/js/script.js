@@ -22,7 +22,7 @@ const accaunt1 = {
 const accaunt2 = {
   useName: "Татьяна",
   iphone: "+79886298315",
-  transaction: [5500, -150, 1500, -800, -100, -137, 5000, -1770, -620, 470],
+  transaction: [5500, -150, 15000, -800, -100, -137, 5000, -1770, -620, 40070],
   interestBalans: 1.7,
   password: 2222,
   transactionDate: [
@@ -149,7 +149,6 @@ const accaunt7 = {
   currency: "RUB",
   locale: "ru-RU",
 };
-
 const arrayAccount = [
   accaunt1,
   accaunt2,
@@ -161,4 +160,33 @@ const arrayAccount = [
 ];
 
 ///////////////////////////////////////////////////////
+//Блоки
+let displayTrans = document.querySelector(".display-transaction");
+//Кнопки
+
+//Формы
+
+//////////////////////////////////////////////////////
+const displayTransaction = function (acc) {
+  displayTrans.innerHTML = "";
+  let transaction = acc.transaction;
+
+  transaction.forEach(function (trans) {
+    let operation = trans < 0 ? "write-offs" : "deposit";
+    let whatOperation = trans < 0 ? " Списание" : "Пополнение";
+
+    let transactionRow = `
+      <div class="display-transaction__row">
+         <h2 class="display-transaction__${operation}">${whatOperation}</h2>
+         <h2 class="display-transaction__date-operation">18.02.2023</h2>
+         <h2 class="display-transaction__amount">${trans}</h2>
+      </div>
+      `;
+
+    displayTrans.insertAdjacentHTML("afterbegin", transactionRow);
+  });
+};
+
+displayTransaction(accaunt7);
+
 
