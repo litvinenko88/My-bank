@@ -347,7 +347,7 @@ body
    .menu__btn
       display: flex
       align-items: center
-      position: fixed
+      position: absolute
       top: 20px
       right: 20px
       width: 26px
@@ -391,6 +391,8 @@ body
    #menu__toggle:checked ~ .login-form
       display: block
       right: 0
+   #menu__toggle:checked ~ .menu__btn
+      position: fixed
    .menu__btn > .span-menu,
    .menu__btn > .span-menu::before,
    .menu__btn > .span-menu::after
