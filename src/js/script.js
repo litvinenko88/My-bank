@@ -1,4 +1,4 @@
-let accaunt1 = {
+const accaunt1 = {
   useName: "Николай",
   iphone: "+79964179001",
   transaction: [800, -150, 1500, -500, -170, -37, 5000, -1470, -800, 450],
@@ -19,8 +19,7 @@ let accaunt1 = {
   currency: "RUB",
   locale: "ru-RU",
 };
-
-let accaunt2 = {
+const accaunt2 = {
   useName: "Татьяна",
   iphone: "+79886298315",
   transaction: [5500, -150, 1500, -800, -100, -137, 5000, -1770, -620, 470],
@@ -41,8 +40,7 @@ let accaunt2 = {
   currency: "RUB",
   locale: "ru-RU",
 };
-
-let accaunt3 = {
+const accaunt3 = {
   useName: "Денис",
   iphone: "+79064111997",
   transaction: [1500, -1050, 1740, -420, -100, 1370, 3500, -1770, -620, 470],
@@ -63,8 +61,7 @@ let accaunt3 = {
   currency: "RUB",
   locale: "ru-RU",
 };
-
-let accaunt4 = {
+const accaunt4 = {
   useName: "Юленэ",
   iphone: "+79624254996",
   transaction: [1200, -360, 1600, -120, -100, -137, 2150, -1770, -620, 470],
@@ -85,11 +82,12 @@ let accaunt4 = {
   currency: "RUB",
   locale: "ru-RU",
 };
-
-let accaunt5 = {
+const accaunt5 = {
   useName: "Ирина",
   iphone: "+79880886141",
-  transaction: [-5000, -360, 16000, -1200, -100, -1370, 2150, -1770, -620, 4070],
+  transaction: [
+    -5000, -360, 16000, -1200, -100, -1370, 2150, -1770, -620, 4070,
+  ],
   interestBalans: 1.1,
   password: 5555,
   transactionDate: [
@@ -107,8 +105,7 @@ let accaunt5 = {
   currency: "RUB",
   locale: "ru-RU",
 };
-
-let accaunt6 = {
+const accaunt6 = {
   useName: "Иван",
   iphone: "+79288224690",
   transaction: [120, -3060, 1600, -120, -1000, -137, 2550, -1770, -620, 4070],
@@ -129,11 +126,12 @@ let accaunt6 = {
   currency: "RUB",
   locale: "ru-RU",
 };
-
-let accaunt7 = {
+const accaunt7 = {
   useName: "Антонио",
   iphone: "+79624333191",
-  transaction: [12000, -3060, -1600, -180, -1000, -137, 2150, -1770, -620, -470],
+  transaction: [
+    12000, -3060, -1600, -180, -1000, -137, 2150, -1770, -620, -470,
+  ],
   interestBalans: 1.3,
   password: 7777,
   transactionDate: [
@@ -151,3 +149,16 @@ let accaunt7 = {
   currency: "RUB",
   locale: "ru-RU",
 };
+
+const arrayAccount = [
+  accaunt1,
+  accaunt2,
+  accaunt3,
+  accaunt4,
+  accaunt5,
+  accaunt6,
+  accaunt7,
+];
+
+///////////////////////////////////////////////////////
+
