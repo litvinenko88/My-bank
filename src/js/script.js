@@ -166,6 +166,11 @@ let displayTrans = document.querySelector(".display-transaction");
 
 //Формы
 
+//Строки
+let deposiText = document.querySelector(".receiving");
+let spentText = document.querySelector(".spent");
+let percentText = document.querySelector(".percent");
+let balansText = document.querySelector(".account-details__current-balance");
 //////////////////////////////////////////////////////
 const displayTransaction = function (acc) {
   displayTrans.innerHTML = "";
@@ -186,7 +191,30 @@ const displayTransaction = function (acc) {
     displayTrans.insertAdjacentHTML("afterbegin", transactionRow);
   });
 };
-
 displayTransaction(accaunt7);
 
+const getFinalBalance = function (trans) {
+  let currentBalance = trans.transaction.reduce((acc, item) => acc + item, 0);
+  let getDeposits = trans.transaction.reduce((acc, item) => {
+    if (item >= 0) {
+      return acc + item;
+    } else {
+      return acc;
+    }
+  }, 0);
+  let getWriteOff = trans.transaction.reduce((acc, item) => {
+    if (item <= 0) {
+      return acc + item;
+    } else {
+      return acc;
+    }
+  }, 0);
+  let getPercent = currentBalance * (trans.interestBalans / 100);
+
+  balansText.textContent = currentBalance;
+  deposiText.textContent = getDeposits;
+  spentText.textContent = getWriteOff;
+  percentText.textContent = Math.floor(getPercent);
+};
+getFinalBalance(accaunt7);
 
