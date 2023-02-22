@@ -27,15 +27,15 @@ const accaunt2 = {
   password: 2222,
   transactionDate: [
     "Tue Feb 21 2023 16:32:45",
-    "Tue Feb 20 2023 11:13:45",
+    "Tue Feb 19 2023 11:13:45",
     "Tue Feb 19 2023 17:33:45",
-    "Tue Feb 18 2023 10:12:45",
+    "Tue Feb 7 2023 10:12:45",
     "Tue Feb 17 2023 13:52:45",
     "Tue Feb 16 2023 18:02:45",
-    "Tue Feb 16 2023 23:32:45",
-    "Tue Feb 15 2023 17:32:45",
-    "Tue Feb 14 2023 09:55:45",
-    "Tue Feb 14 2023 14:16:45",
+    "Tue Feb 10 2023 23:32:45",
+    "Tue Feb 7 2023 17:32:45",
+    "Tue Feb 4 2023 09:55:45",
+    "Tue Feb 1 2023 14:16:45",
   ],
   currency: "RUB",
   locale: "ru-RU",
@@ -137,14 +137,14 @@ const accaunt7 = {
   transactionDate: [
     "Tue Feb 21 2023 16:32:45",
     "Tue Feb 20 2023 11:13:45",
-    "Tue Feb 19 2023 17:33:45",
+    "Tue Feb 18 2023 17:33:45",
     "Tue Feb 18 2023 10:12:45",
-    "Tue Feb 17 2023 13:52:45",
+    "Tue Feb 16 2023 13:52:45",
     "Tue Feb 16 2023 18:02:45",
     "Tue Feb 16 2023 23:32:45",
     "Tue Feb 15 2023 17:32:45",
-    "Tue Feb 14 2023 09:55:45",
-    "Tue Feb 14 2023 14:16:45",
+    "Tue Feb 9 2023 09:55:45",
+    "Tue Feb 2 2023 14:16:45",
   ],
   currency: "RUB",
   locale: "ru-RU",
@@ -171,24 +171,33 @@ let deposiText = document.querySelector(".receiving");
 let spentText = document.querySelector(".spent");
 let percentText = document.querySelector(".percent");
 let balansText = document.querySelector(".account-details__current-balance");
+let currentDate = document.querySelector(".account-details__current-date");
 //////////////////////////////////////////////////////
 const displayTransaction = function (acc) {
   displayTrans.innerHTML = "";
   let transaction = acc.transaction;
 
-  transaction.forEach(function (trans) {
+  transaction.forEach(function (trans, index) {
     let operation = trans < 0 ? "write-offs" : "deposit";
     let whatOperation = trans < 0 ? " Списание" : "Пополнение";
 
+    let wasDate = new Date(acc.transactionDate[index]);
+    let date = `${wasDate.getDate()}`.padStart(2, "0");
+    let month = `${wasDate.getMonth() + 1}`.padStart(2, "0");
+    let year = wasDate.getFullYear()
+    
+    let transData = `${date}.${month}.${year}`
+   
+   console.log();
     let transactionRow = `
       <div class="display-transaction__row">
          <h2 class="display-transaction__${operation}">${whatOperation}</h2>
-         <h2 class="display-transaction__date-operation">18.02.2023</h2>
+         <h2 class="display-transaction__date-operation">${transData}</h2>
          <h2 class="display-transaction__amount">${trans}</h2>
       </div>
       `;
 
-    displayTrans.insertAdjacentHTML("afterbegin", transactionRow);
+    displayTrans.insertAdjacentHTML("beforeend", transactionRow);
   });
 };
 displayTransaction(accaunt7);
@@ -218,3 +227,12 @@ const getFinalBalance = function (trans) {
 };
 getFinalBalance(accaunt7);
 
+const getTransactionDate = function (transDate) {
+  let date = transDate.transactionDate;
+
+  let now = new Date();
+  let nowData = new Intl.DateTimeFormat(transDate.locale).format(now);
+  currentDate.textContent = `На ${nowData}`;
+};
+
+getTransactionDate(accaunt7);
