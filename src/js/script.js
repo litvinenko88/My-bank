@@ -173,6 +173,14 @@ let percentText = document.querySelector(".percent");
 let balansText = document.querySelector(".account-details__current-balance");
 let currentDate = document.querySelector(".account-details__current-date");
 //////////////////////////////////////////////////////
+const getCurrency = function (currency, locale) {
+  let y = new Intl.NumberFormat(locale, { style: "currency", currency })
+    .formatToParts(1)
+    .find((x) => x.type === "currency").value;
+
+  return y;
+};
+
 const displayTransaction = function (acc) {
   displayTrans.innerHTML = "";
   let transaction = acc.transaction;
@@ -180,20 +188,21 @@ const displayTransaction = function (acc) {
   transaction.forEach(function (trans, index) {
     let operation = trans < 0 ? "write-offs" : "deposit";
     let whatOperation = trans < 0 ? " Списание" : "Пополнение";
-
+    let currency = getCurrency(acc.currency);
+   
     let wasDate = new Date(acc.transactionDate[index]);
     let date = `${wasDate.getDate()}`.padStart(2, "0");
     let month = `${wasDate.getMonth() + 1}`.padStart(2, "0");
-    let year = wasDate.getFullYear()
-    
-    let transData = `${date}.${month}.${year}`
-   
-   console.log();
+    let year = wasDate.getFullYear();
+
+    let transData = `${date}.${month}.${year}`;
+
+    console.log();
     let transactionRow = `
       <div class="display-transaction__row">
          <h2 class="display-transaction__${operation}">${whatOperation}</h2>
          <h2 class="display-transaction__date-operation">${transData}</h2>
-         <h2 class="display-transaction__amount">${trans}</h2>
+         <h2 class="display-transaction__amount">${trans} ${currency}</h2>
       </div>
       `;
 
@@ -203,6 +212,7 @@ const displayTransaction = function (acc) {
 displayTransaction(accaunt7);
 
 const getFinalBalance = function (trans) {
+  let currency = getCurrency(trans.currency);
   let currentBalance = trans.transaction.reduce((acc, item) => acc + item, 0);
   let getDeposits = trans.transaction.reduce((acc, item) => {
     if (item >= 0) {
@@ -220,16 +230,14 @@ const getFinalBalance = function (trans) {
   }, 0);
   let getPercent = currentBalance * (trans.interestBalans / 100);
 
-  balansText.textContent = currentBalance;
-  deposiText.textContent = getDeposits;
-  spentText.textContent = getWriteOff;
-  percentText.textContent = Math.floor(getPercent);
+  balansText.textContent = `${currentBalance} ${currency}`;
+  deposiText.textContent = `${getDeposits} ${currency}`;
+  spentText.textContent = `${getWriteOff} ${currency}`;
+  percentText.textContent = `${Math.floor(getPercent)} ${currency}`;
 };
 getFinalBalance(accaunt7);
 
 const getTransactionDate = function (transDate) {
-  let date = transDate.transactionDate;
-
   let now = new Date();
   let nowData = new Intl.DateTimeFormat(transDate.locale).format(now);
   currentDate.textContent = `На ${nowData}`;
