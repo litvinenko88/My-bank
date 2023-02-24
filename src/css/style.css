@@ -80,19 +80,20 @@ body::-webkit-scrollbar-thumb {
   transform: scale(0.98);
   box-shadow: 3px 2px 15px 1px rgba(0, 0, 0, 0.24);
 }
-.header__btn-login-close {
+.header__btn-close {
   background: #a5a5a5;
   border: none;
   padding: 0.6rem 3rem;
   border-radius: 3px;
   color: #fff;
 }
-.header__btn-login-close:active {
+.header__btn-close:active {
   transform: scale(0.98);
   box-shadow: 3px 2px 15px 1px rgba(0, 0, 0, 0.24);
 }
 
 .wrapper-content {
+  visibility: hidden;
   margin: 3rem;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
