@@ -165,10 +165,12 @@ let displayTransaction = document.querySelector(".display-transaction");
 let commonWrapper = document.querySelector(".wrapper-content");
 //Кнопки
 let btnLoginBank = document.querySelector(".header__btn-login");
-let btnCloseBank = document.querySelector(".header__btn-login-close");
+let btnCloseBank = document.querySelector(".header__btn-close");
+let btnCredit = document.querySelector(".credit__btn-credit");
 //Формы
 let inputNicknameLogin = document.querySelector(".header__nike-name");
 let inputPasswordLogin = document.querySelector(".header__password");
+let creditInputElement = document.querySelector(".credit__input");
 //Строки
 let labelDeposi = document.querySelector(".receiving");
 let labelSpent = document.querySelector(".spent");
@@ -214,7 +216,7 @@ const getTransaction = function (accaunt) {
     displayTransaction.insertAdjacentHTML("afterbegin", transactionRow);
   });
 };
-// getTransaction(accaunt7)
+getTransaction(accaunt7);
 
 const getFinalBalance = function (accaunt) {
   let currency = getCurrency(accaunt.currency);
@@ -240,8 +242,7 @@ const getFinalBalance = function (accaunt) {
   labelSpent.textContent = `${writeOff} ${currency}`;
   labelPercent.textContent = `${Math.floor(percent)} ${currency}`;
 };
-
-// getFinalBalance(accaunt7)
+getFinalBalance(accaunt7);
 
 let currentAccaunt;
 
@@ -258,21 +259,25 @@ btnLoginBank.addEventListener("click", function (event) {
   let nowDate = `${date}.${month}.${year}`;
 
   currentAccaunt = accounts.find((accaunt) => accaunt.iphone === nickname);
+
   if (currentAccaunt?.password === password) {
     inputNicknameLogin.value = "";
     inputPasswordLogin.value = "";
     commonWrapper.style.visibility = "visible";
     currentDate.textContent = `На ${nowDate}`;
+    document.querySelector(
+      ".header__users-greeting"
+    ).innerHTML = `<h1 class="header__users-greeting">Рады, что вы снова с нами <span class="header__user-name">${currentAccaunt.useName}</span></h1>`;
+    document.querySelector(
+      ".header__users-greeting-forma"
+    ).innerHTML = `<h1 class="header__users-greeting-forma">Рады, что вы снова с нами<br><span class="header__user-name">${currentAccaunt.useName}</span></h1>`;
   }
 
-  document.querySelector(
-    ".header__users-greeting"
-  ).innerHTML = `<h1 class="header__users-greeting">Рады, что вы снова с нами <span class="header__user-name">${currentAccaunt.useName}</span></h1>`;
-  document.querySelector(
-    ".header__users-greeting-forma"
-  ).innerHTML = `<h1 class="header__users-greeting-forma">Рады, что вы снова с нами<br><span class="header__user-name">${currentAccaunt.useName}</span></h1>`;
-
-  
   getTransaction(currentAccaunt);
   getFinalBalance(currentAccaunt);
+});
+
+btnCloseBank.addEventListener("click", function (event) {
+  event.preventDefault();
+  commonWrapper.style.visibility = "hidden";
 });
