@@ -188,9 +188,9 @@ const getCurrency = function (currency, locale) {
   return curr;
 };
 
-const getTransaction = function(accaunt) {
-  displayTransaction.innerHTML = ''
-  let transaction = accaunt.transaction
+const getTransaction = function (accaunt) {
+  displayTransaction.innerHTML = "";
+  let transaction = accaunt.transaction;
 
   transaction.forEach(function (trans, index) {
     const operationClass = trans > 0 ? "deposit" : "write-offs";
@@ -202,7 +202,7 @@ const getTransaction = function(accaunt) {
     let month = `${wasDate.getMonth() + 1}`.padStart(2, "0");
     let year = wasDate.getFullYear();
     let transData = `${date}.${month}.${year}`;
-    
+
     const transactionRow = `
        <div class="display-transaction__row">
           <h2 class="display-transaction__${operationClass}">${operationText}</h2>
@@ -211,15 +211,14 @@ const getTransaction = function(accaunt) {
         </div>
     `;
 
-    displayTransaction.insertAdjacentHTML('afterbegin', transactionRow)
-  } );
-}
+    displayTransaction.insertAdjacentHTML("afterbegin", transactionRow);
+  });
+};
 // getTransaction(accaunt7)
 
-
-const getFinalBalance = function(accaunt) {
+const getFinalBalance = function (accaunt) {
   let currency = getCurrency(accaunt.currency);
-  let balance = accaunt.transaction.reduce((acc, item) => acc + item)
+  let balance = accaunt.transaction.reduce((acc, item) => acc + item);
   let deposit = accaunt.transaction.reduce((acc, item) => {
     if (item >= 0) {
       return acc + item;
@@ -236,32 +235,17 @@ const getFinalBalance = function(accaunt) {
   }, 0);
   let percent = balance * (accaunt.interestBalans / 100);
 
-  currentBalanse.textContent = `${balance} ${currency}`
-  labelDeposi.textContent = `${deposit} ${currency}`
-  labelSpent.textContent = `${writeOff} ${currency}`
-  labelPercent.textContent = `${Math.floor(percent)} ${currency}`
-
-}
+  currentBalanse.textContent = `${balance} ${currency}`;
+  labelDeposi.textContent = `${deposit} ${currency}`;
+  labelSpent.textContent = `${writeOff} ${currency}`;
+  labelPercent.textContent = `${Math.floor(percent)} ${currency}`;
+};
 
 // getFinalBalance(accaunt7)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 let currentAccaunt;
 
-btnLoginBank.addEventListener('click', function (event) {
+btnLoginBank.addEventListener("click", function (event) {
   event.preventDefault();
 
   let nickname = Number(inputNicknameLogin.value);
@@ -270,20 +254,25 @@ btnLoginBank.addEventListener('click', function (event) {
   let date = `${now.getDate()}`.padStart(2, "0");
   let month = `${now.getMonth() + 1}`.padStart(2, "0");
   let year = `${now.getFullYear()}`;
-  
-  let nowDate = `${date}.${month}.${year}`
 
-  currentAccaunt = accounts.find(accaunt => accaunt.iphone === nickname)
-  if(currentAccaunt?.password === password) {
+  let nowDate = `${date}.${month}.${year}`;
+
+  currentAccaunt = accounts.find((accaunt) => accaunt.iphone === nickname);
+  if (currentAccaunt?.password === password) {
     inputNicknameLogin.value = "";
     inputPasswordLogin.value = "";
     commonWrapper.style.visibility = "visible";
-    currentDate.textContent = nowDate
+    currentDate.textContent = `На ${nowDate}`;
   }
 
+  document.querySelector(
+    ".header__users-greeting"
+  ).innerHTML = `<h1 class="header__users-greeting">Рады, что вы снова с нами <span class="header__user-name">${currentAccaunt.useName}</span></h1>`;
+  document.querySelector(
+    ".header__users-greeting-forma"
+  ).innerHTML = `<h1 class="header__users-greeting-forma">Рады, что вы снова с нами<br><span class="header__user-name">${currentAccaunt.useName}</span></h1>`;
+
+  
   getTransaction(currentAccaunt);
   getFinalBalance(currentAccaunt);
-  
-})
-
-
+});
