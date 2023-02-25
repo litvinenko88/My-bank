@@ -182,6 +182,7 @@ let dateOperation = document.querySelector(
   ".display-transaction__date-operation"
 );
 let blokTranslationText = document.querySelector(".translation__action-name");
+let blokCreditText = document.querySelector(".credit__action-name");
 //////////////////////////////////////////////////////
 const getTransaction = function (accaunt) {
   displayTransaction.innerHTML = "";
@@ -283,10 +284,29 @@ btnTransaction.addEventListener("click", function (event) {
     blokTranslationText.textContent = "Перевести деньги";
   } else if (transactionAmount > currentAccaunt.balance) {
     blokTranslationText.textContent = "Недостаточно средств для перевода";
-  } else if (recipientAccount.iphone == currentAccaunt.iphone) {
+  } else if (recipientAccount?.iphone === currentAccaunt.iphone) {
     blokTranslationText.textContent = "Перевод самому себе не возможен";
-  } 
+  } else {
+    blokTranslationText.textContent = "Пользователь не найден";
+  }
 });
+
+btnCredit.addEventListener('click', function(event) {
+  event.preventDefault()
+  let creditAmout = Number(creditInput.value) 
+  let middleShoulder = creditAmout / currentAccaunt.balance * 100
+
+  if(middleShoulder < 40) {
+    currentAccaunt.transaction.push(creditAmout)
+    updateUI(currentAccaunt)
+  } else {
+    blokCreditText.textContent = 'Слишком большая сумма займа'
+  }
+  
+  
+})
+
+
 
 btnCloseBank.addEventListener("click", function (event) {
   event.preventDefault();

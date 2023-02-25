@@ -93,7 +93,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .wrapper-content {
-  visibility: hidden;
+  visibility: visible;
   margin: 3rem;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
