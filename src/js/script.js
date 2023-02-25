@@ -164,6 +164,7 @@ let btnLoginBank = document.querySelector(".header__btn-login");
 let btnCloseBank = document.querySelector(".header__btn-close");
 let btnCredit = document.querySelector(".credit__btn-credit");
 let btnTransaction = document.querySelector(".translation__btn-trans");
+let btnSorting = document.querySelector(".account-summary__sorting-btn");
 //Формы
 let inputNicknameLogin = document.querySelector(".header__nike-name");
 let inputPasswordLogin = document.querySelector(".header__password");
@@ -184,10 +185,14 @@ let dateOperation = document.querySelector(
 let blokTranslationText = document.querySelector(".translation__action-name");
 let blokCreditText = document.querySelector(".credit__action-name");
 //////////////////////////////////////////////////////
-const getTransaction = function (accaunt) {
+const getTransaction = function (accaunt, sort = false) {
   displayTransaction.innerHTML = "";
 
-  accaunt.transaction.forEach(function (trans, index) {
+  let transSort = sort
+    ? accaunt.transaction.slice().sort((x, y) => x - y)
+    : accaunt.transaction;
+
+  transSort.forEach(function (trans, index) {
     const operationClass = trans > 0 ? "deposit" : "write-offs";
     const operationText = trans > 0 ? "Пополнение" : "Списание";
 
@@ -291,22 +296,28 @@ btnTransaction.addEventListener("click", function (event) {
   }
 });
 
-btnCredit.addEventListener('click', function(event) {
-  event.preventDefault()
-  let creditAmout = Number(creditInput.value) 
-  let middleShoulder = creditAmout / currentAccaunt.balance * 100
+btnCredit.addEventListener("click", function (event) {
+  event.preventDefault();
+  let creditAmout = Number(creditInput.value);
+  let middleShoulder = (creditAmout / currentAccaunt.balance) * 100;
 
-  if(middleShoulder < 40) {
-    currentAccaunt.transaction.push(creditAmout)
-    updateUI(currentAccaunt)
+  if (middleShoulder < 40) {
+    currentAccaunt.transaction.push(creditAmout);
+    updateUI(currentAccaunt);
   } else {
-    blokCreditText.textContent = 'Слишком большая сумма займа'
+    blokCreditText.textContent = "Слишком большая сумма займа";
   }
-  
-  
-})
 
+  creditInput.value = "";
+});
 
+let transSotr = true ? false : true;
+
+btnSorting.addEventListener("click", function (event) {
+  event.preventDefault();
+  getTransaction(currentAccaunt, transSotr);
+  transSotr = !transSotr;
+});
 
 btnCloseBank.addEventListener("click", function (event) {
   event.preventDefault();
