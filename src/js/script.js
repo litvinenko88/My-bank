@@ -184,6 +184,7 @@ let dateOperation = document.querySelector(
 );
 let blokTranslationText = document.querySelector(".translation__action-name");
 let blokCreditText = document.querySelector(".credit__action-name");
+let labelTime = document.querySelector(".time");
 //////////////////////////////////////////////////////
 const formatCurrency = function (value, locale, currency) {
   return Intl.NumberFormat(locale, {
@@ -271,9 +272,9 @@ const updateUI = function (accaunt) {
   getFinalBalance(accaunt);
 };
 
-let currentAccaunt;
-currentAccaunt = accaunt1;
-updateUI(currentAccaunt);
+let currentAccaunt, currentTime;
+// currentAccaunt = accaunt1;
+// updateUI(currentAccaunt);
 
 btnLoginBank.addEventListener("click", function (event) {
   event.preventDefault();
@@ -294,6 +295,8 @@ btnLoginBank.addEventListener("click", function (event) {
       ".header__users-greeting-forma"
     ).innerHTML = `<h1 class="header__users-greeting-forma">Рады, что вы снова с нами<br><span class="header__user-name">${currentAccaunt.useName}</span></h1>`;
 
+    if (currentTime) clearInterval(currentTime);
+    currentTime = startLogoutTime();
     updateUI(currentAccaunt);
   }
 });
@@ -315,14 +318,21 @@ btnTransaction.addEventListener("click", function (event) {
     transactionAmount <= currentAccaunt.balance &&
     recipientAccount.iphone !== currentAccaunt.iphone
   ) {
-    currentAccaunt.transaction.push(-transactionAmount);
-    recipientAccount.transaction.push(transactionAmount);
-    currentAccaunt.transactionDate.push(new Date());
-    recipientAccount.transactionDate.push(new Date());
-    updateUI(currentAccaunt);
+    setInterval(function () {
+      currentAccaunt.transaction.push(-transactionAmount);
+      recipientAccount.transaction.push(transactionAmount);
+      currentAccaunt.transactionDate.push(new Date());
+      recipientAccount.transactionDate.push(new Date());
+      updateUI(currentAccaunt);
+      translationInput.value = "";
+      transactionSumInput.value = "";
+      blokTranslationText.textContent = "Перевести деньги";
+      clearInterval(currentTime);
+      currentTime = startLogoutTime();
+    }, 5000);
     translationInput.value = "";
     transactionSumInput.value = "";
-    blokTranslationText.textContent = "Перевести деньги";
+    blokTranslationText.textContent = "Ожидайте перевод";
   } else if (transactionAmount > currentAccaunt.balance) {
     blokTranslationText.textContent = "Недостаточно средств для перевода";
   } else if (recipientAccount?.iphone === currentAccaunt.iphone) {
@@ -339,10 +349,15 @@ btnCredit.addEventListener("click", function (event) {
 
   if (middleShoulder < 40) {
     if (creditAmout) {
-      currentAccaunt.transaction.push(creditAmout);
-      currentAccaunt.transactionDate.push(new Date());
-      updateUI(currentAccaunt);
-      blokCreditText.textContent = "Запросить займ";
+      blokCreditText.textContent = "Ожидайте займ";
+      setInterval(function () {
+        currentAccaunt.transaction.push(creditAmout);
+        currentAccaunt.transactionDate.push(new Date());
+        updateUI(currentAccaunt);
+        clearInterval(currentTime);
+        currentTime = startLogoutTime();
+        blokCreditText.textContent = "Запросить займ";
+      }, 5000);
     } else if (creditInput.value.length === 0) {
       blokCreditText.textContent = "Ведите сумму займа";
     }
@@ -361,6 +376,31 @@ btnSorting.addEventListener("click", function (event) {
   getTransaction(currentAccaunt, !transSotr);
   transSotr = !transSotr;
 });
+
+const startLogoutTime = function () {
+  const logOutTimeCallback = function () {
+    let minutes = String(Math.trunc(time / 60)).padStart(2, "0");
+    let second = String(time % 60).padStart(2, "0");
+
+    labelTime.textContent = `${minutes}:${second}`;
+
+    if (time === 0) {
+      clearInterval(logOutTime);
+      commonWrapper.style.visibility = "hidden";
+      document.querySelector(
+        ".header__users-greeting"
+      ).innerHTML = `<h1 class="header__users-greeting">Войдите в свой аккаунт <span class="header__user-name"></span></h1>`;
+      document.querySelector(
+        ".header__users-greeting-forma"
+      ).innerHTML = `<h1 class="header__users-greeting-forma">Войдите в свой аккаунт <br><span class="header__user-name"></span></h1>`;
+    }
+    time--;
+  };
+  let time = 300;
+  logOutTimeCallback();
+  const logOutTime = setInterval(logOutTimeCallback, 1000);
+  return logOutTime;
+};
 
 btnCloseBank.addEventListener("click", function (event) {
   event.preventDefault();
