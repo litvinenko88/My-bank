@@ -185,6 +185,13 @@ let dateOperation = document.querySelector(
 let blokTranslationText = document.querySelector(".translation__action-name");
 let blokCreditText = document.querySelector(".credit__action-name");
 //////////////////////////////////////////////////////
+const formatCurrency = function (value, locale, currency) {
+  return Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+  }).format(value);
+};
+
 const getTransaction = function (accaunt, sort = false) {
   displayTransaction.innerHTML = "";
 
@@ -196,11 +203,20 @@ const getTransaction = function (accaunt, sort = false) {
     const operationClass = trans > 0 ? "deposit" : "write-offs";
     const operationText = trans > 0 ? "Пополнение" : "Списание";
 
+    let transDate = new Date(accaunt.transactionDate[index]);
+    let dates = `${transDate.getDate()}`.padStart(2, "0");
+    let month = `${transDate.getMonth()}`.padStart(2, "0");
+    let year = transDate.getFullYear();
+
+    let date = `${dates}.${month}.${year}`;
+
+    let formatTrans = formatCurrency(trans, accaunt.locale, accaunt.currency);
+
     const transactionRow = `
       <div class="display-transaction__row">
         <h2 class="display-transaction__${operationClass}">${operationText}</h2>
-        <h2 class="display-transaction__date-operation"></h2>
-        <h2 class="display-transaction__amount">${trans}</h2>
+        <h2 class="display-transaction__date-operation">${date}</h2>
+        <h2 class="display-transaction__amount">${formatTrans}</h2>
       </div>
      `;
 
@@ -211,7 +227,11 @@ const getTransaction = function (accaunt, sort = false) {
 const getBalanse = function (accaunt) {
   let balance = accaunt.transaction.reduce((acc, item) => acc + item);
   accaunt.balance = balance;
-  currentBalanse.textContent = balance;
+  currentBalanse.textContent = formatCurrency(
+    balance,
+    accaunt.locale,
+    accaunt.currency
+  );
 };
 
 const getFinalBalance = function (accaunt) {
@@ -228,9 +248,21 @@ const getFinalBalance = function (accaunt) {
     .map((dep) => (dep * accaunt.interestBalans) / 100)
     .reduce((acc, precent) => acc + precent);
 
-  labelSpent.textContent = spentTotal;
-  labelDeposi.textContent = depositTotal;
-  labelPercent.textContent = `${Math.floor(percentTotal)}`;
+  labelSpent.textContent = formatCurrency(
+    spentTotal,
+    accaunt.locale,
+    accaunt.currency
+  );
+  labelDeposi.textContent = formatCurrency(
+    depositTotal,
+    accaunt.locale,
+    accaunt.currency
+  );
+  labelPercent.textContent = formatCurrency(
+    percentTotal,
+    accaunt.locale,
+    accaunt.currency
+  );
 };
 
 const updateUI = function (accaunt) {
@@ -240,6 +272,8 @@ const updateUI = function (accaunt) {
 };
 
 let currentAccaunt;
+currentAccaunt = accaunt1;
+updateUI(currentAccaunt);
 
 btnLoginBank.addEventListener("click", function (event) {
   event.preventDefault();
@@ -268,7 +302,7 @@ btnTransaction.addEventListener("click", function (event) {
   event.preventDefault();
 
   let iphoneTransaction = Number(translationInput.value);
-  let transactionAmount = Number(transactionSumInput.value);
+  let transactionAmount = Math.floor(Number(transactionSumInput.value));
   let recipientAccount = accounts.find(
     (accaunt) => accaunt.iphone === iphoneTransaction
   );
@@ -283,6 +317,8 @@ btnTransaction.addEventListener("click", function (event) {
   ) {
     currentAccaunt.transaction.push(-transactionAmount);
     recipientAccount.transaction.push(transactionAmount);
+    currentAccaunt.transactionDate.push(new Date());
+    recipientAccount.transactionDate.push(new Date());
     updateUI(currentAccaunt);
     translationInput.value = "";
     transactionSumInput.value = "";
@@ -298,12 +334,18 @@ btnTransaction.addEventListener("click", function (event) {
 
 btnCredit.addEventListener("click", function (event) {
   event.preventDefault();
-  let creditAmout = Number(creditInput.value);
+  let creditAmout = Math.floor(Number(creditInput.value));
   let middleShoulder = (creditAmout / currentAccaunt.balance) * 100;
 
   if (middleShoulder < 40) {
-    currentAccaunt.transaction.push(creditAmout);
-    updateUI(currentAccaunt);
+    if (creditAmout) {
+      currentAccaunt.transaction.push(creditAmout);
+      currentAccaunt.transactionDate.push(new Date());
+      updateUI(currentAccaunt);
+      blokCreditText.textContent = "Запросить займ";
+    } else if (creditInput.value.length === 0) {
+      blokCreditText.textContent = "Ведите сумму займа";
+    }
   } else {
     blokCreditText.textContent = "Слишком большая сумма займа";
   }
@@ -311,11 +353,12 @@ btnCredit.addEventListener("click", function (event) {
   creditInput.value = "";
 });
 
-let transSotr = true ? false : true;
+let transSotr = true;
 
 btnSorting.addEventListener("click", function (event) {
   event.preventDefault();
-  getTransaction(currentAccaunt, transSotr);
+
+  getTransaction(currentAccaunt, !transSotr);
   transSotr = !transSotr;
 });
 
