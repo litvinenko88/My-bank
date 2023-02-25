@@ -318,7 +318,7 @@ btnTransaction.addEventListener("click", function (event) {
     transactionAmount <= currentAccaunt.balance &&
     recipientAccount.iphone !== currentAccaunt.iphone
   ) {
-    setInterval(function () {
+    let timeTrans = setInterval(function () {
       currentAccaunt.transaction.push(-transactionAmount);
       recipientAccount.transaction.push(transactionAmount);
       currentAccaunt.transactionDate.push(new Date());
@@ -327,11 +327,12 @@ btnTransaction.addEventListener("click", function (event) {
       translationInput.value = "";
       transactionSumInput.value = "";
       blokTranslationText.textContent = "Перевести деньги";
-      clearInterval(currentTime);
-      currentTime = startLogoutTime();
+      clearInterval(timeTrans);
     }, 5000);
     translationInput.value = "";
     transactionSumInput.value = "";
+    clearInterval(currentTime);
+    currentTime = startLogoutTime();
     blokTranslationText.textContent = "Ожидайте перевод";
   } else if (transactionAmount > currentAccaunt.balance) {
     blokTranslationText.textContent = "Недостаточно средств для перевода";
@@ -350,21 +351,21 @@ btnCredit.addEventListener("click", function (event) {
   if (middleShoulder < 40) {
     if (creditAmout) {
       blokCreditText.textContent = "Ожидайте займ";
-      setInterval(function () {
+      let creditTime = setInterval(function () {
         currentAccaunt.transaction.push(creditAmout);
         currentAccaunt.transactionDate.push(new Date());
         updateUI(currentAccaunt);
-        clearInterval(currentTime);
-        currentTime = startLogoutTime();
         blokCreditText.textContent = "Запросить займ";
+        clearInterval(creditTime);
       }, 5000);
+      clearInterval(currentTime);
+      currentTime = startLogoutTime();
     } else if (creditInput.value.length === 0) {
       blokCreditText.textContent = "Ведите сумму займа";
     }
   } else {
     blokCreditText.textContent = "Слишком большая сумма займа";
   }
-
   creditInput.value = "";
 });
 
