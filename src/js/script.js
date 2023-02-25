@@ -163,10 +163,13 @@ let commonWrapper = document.querySelector(".wrapper-content");
 let btnLoginBank = document.querySelector(".header__btn-login");
 let btnCloseBank = document.querySelector(".header__btn-close");
 let btnCredit = document.querySelector(".credit__btn-credit");
+let btnTransaction = document.querySelector(".translation__btn-trans");
 //Формы
 let inputNicknameLogin = document.querySelector(".header__nike-name");
 let inputPasswordLogin = document.querySelector(".header__password");
-let creditInputElement = document.querySelector(".credit__input");
+let creditInput = document.querySelector(".credit__input");
+let translationInput = document.querySelector("#transaction-input");
+let transactionSumInput = document.querySelector("#transaction-sum");
 //Строки
 let labelDeposi = document.querySelector(".receiving");
 let labelSpent = document.querySelector(".spent");
@@ -178,6 +181,7 @@ let currentDate = document.querySelector(".account-details__current-date");
 let dateOperation = document.querySelector(
   ".display-transaction__date-operation"
 );
+let blokTranslationText = document.querySelector(".translation__action-name");
 //////////////////////////////////////////////////////
 const getTransaction = function (accaunt) {
   displayTransaction.innerHTML = "";
@@ -200,6 +204,7 @@ const getTransaction = function (accaunt) {
 
 const getBalanse = function (accaunt) {
   let balance = accaunt.transaction.reduce((acc, item) => acc + item);
+  accaunt.balance = balance;
   currentBalanse.textContent = balance;
 };
 
@@ -219,7 +224,13 @@ const getFinalBalance = function (accaunt) {
 
   labelSpent.textContent = spentTotal;
   labelDeposi.textContent = depositTotal;
-  labelPercent.textContent = percentTotal;
+  labelPercent.textContent = `${Math.floor(percentTotal)}`;
+};
+
+const updateUI = function (accaunt) {
+  getTransaction(accaunt);
+  getBalanse(accaunt);
+  getFinalBalance(accaunt);
 };
 
 let currentAccaunt;
@@ -243,17 +254,41 @@ btnLoginBank.addEventListener("click", function (event) {
       ".header__users-greeting-forma"
     ).innerHTML = `<h1 class="header__users-greeting-forma">Рады, что вы снова с нами<br><span class="header__user-name">${currentAccaunt.useName}</span></h1>`;
 
-    getTransaction(currentAccaunt);
-    getBalanse(currentAccaunt);
-    getFinalBalance(currentAccaunt);
+    updateUI(currentAccaunt);
   }
+});
+
+btnTransaction.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  let iphoneTransaction = Number(translationInput.value);
+  let transactionAmount = Number(transactionSumInput.value);
+  let recipientAccount = accounts.find(
+    (accaunt) => accaunt.iphone === iphoneTransaction
+  );
+
+  if (
+    iphoneTransaction &&
+    transactionAmount &&
+    transactionAmount > 0 &&
+    recipientAccount &&
+    transactionAmount <= currentAccaunt.balance &&
+    recipientAccount.iphone !== currentAccaunt.iphone
+  ) {
+    currentAccaunt.transaction.push(-transactionAmount);
+    recipientAccount.transaction.push(transactionAmount);
+    updateUI(currentAccaunt);
+    translationInput.value = "";
+    transactionSumInput.value = "";
+    blokTranslationText.textContent = "Перевести деньги";
+  } else if (transactionAmount > currentAccaunt.balance) {
+    blokTranslationText.textContent = "Недостаточно средств для перевода";
+  } else if (recipientAccount.iphone == currentAccaunt.iphone) {
+    blokTranslationText.textContent = "Перевод самому себе не возможен";
+  } 
 });
 
 btnCloseBank.addEventListener("click", function (event) {
   event.preventDefault();
   commonWrapper.style.visibility = "hidden";
 });
-
-
-
-
