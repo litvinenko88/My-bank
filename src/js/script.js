@@ -165,12 +165,15 @@ let btnCloseBank = document.querySelector(".header__btn-close");
 let btnCredit = document.querySelector(".credit__btn-credit");
 let btnTransaction = document.querySelector(".translation__btn-trans");
 let btnSorting = document.querySelector(".account-summary__sorting-btn");
+let btnAccClose = document.querySelector(".close-account__btn-acc-close");
 //Формы
 let inputNicknameLogin = document.querySelector(".header__nike-name");
 let inputPasswordLogin = document.querySelector(".header__password");
 let creditInput = document.querySelector(".credit__input");
 let translationInput = document.querySelector("#transaction-input");
 let transactionSumInput = document.querySelector("#transaction-sum");
+let closeInputIphone = document.querySelector("#close-input-iphone");
+let closeInputPassword = document.querySelector("#close-input-password");
 //Строки
 let labelDeposi = document.querySelector(".receiving");
 let labelSpent = document.querySelector(".spent");
@@ -184,6 +187,9 @@ let dateOperation = document.querySelector(
 );
 let blokTranslationText = document.querySelector(".translation__action-name");
 let blokCreditText = document.querySelector(".credit__action-name");
+let blokCloseAccauntText = document.querySelector(
+  ".close-account__action-name"
+);
 let labelTime = document.querySelector(".time");
 //////////////////////////////////////////////////////
 const formatCurrency = function (value, locale, currency) {
@@ -273,8 +279,6 @@ const updateUI = function (accaunt) {
 };
 
 let currentAccaunt, currentTime;
-// currentAccaunt = accaunt1;
-// updateUI(currentAccaunt);
 
 btnLoginBank.addEventListener("click", function (event) {
   event.preventDefault();
@@ -294,10 +298,48 @@ btnLoginBank.addEventListener("click", function (event) {
     document.querySelector(
       ".header__users-greeting-forma"
     ).innerHTML = `<h1 class="header__users-greeting-forma">Рады, что вы снова с нами<br><span class="header__user-name">${currentAccaunt.useName}</span></h1>`;
-
+    let transDate = new Date();
+    let dates = `${transDate.getDate()}`.padStart(2, "0");
+    let month = `${transDate.getMonth()}`.padStart(2, "0");
+    let year = transDate.getFullYear();
+    let date = `${dates}.${month}.${year}`;
+    currentDate.textContent = date;
     if (currentTime) clearInterval(currentTime);
     currentTime = startLogoutTime();
     updateUI(currentAccaunt);
+  } else {
+    document.querySelector(
+      ".header__users-greeting"
+    ).innerHTML = `<h1 class="header__users-greeting">Неверный логин или пароль</h1>`;
+    document.querySelector(
+      ".header__users-greeting-forma"
+    ).innerHTML = `<h1 class="header__users-greeting-forma">Неверный логин или пароль</h1>`;
+  }
+});
+
+btnAccClose.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  let iphone = Number(closeInputIphone.value);
+  let password = Number(closeInputPassword.value);
+
+  if (
+    iphone === currentAccaunt.iphone &&
+    password === currentAccaunt.password
+  ) {
+    let currentAccauntIndex = accounts.findIndex(
+      (accaunt) => accaunt.iphone === currentAccaunt.iphone
+    );
+    accounts.splice(currentAccauntIndex, 1);
+    commonWrapper.style.visibility = "hidden";
+    document.querySelector(
+      ".header__users-greeting"
+    ).innerHTML = `<h1 class="header__users-greeting">Войдите в свой аккаунт</h1>`;
+    document.querySelector(
+      ".header__users-greeting-forma"
+    ).innerHTML = `<h1 class="header__users-greeting-forma">Войдите в свой аккаунт</h1>`;
+  } else {
+    blokCloseAccauntText.textContent = "Некорректные данные";
   }
 });
 
@@ -390,10 +432,10 @@ const startLogoutTime = function () {
       commonWrapper.style.visibility = "hidden";
       document.querySelector(
         ".header__users-greeting"
-      ).innerHTML = `<h1 class="header__users-greeting">Войдите в свой аккаунт <span class="header__user-name"></span></h1>`;
+      ).innerHTML = `<h1 class="header__users-greeting">Войдите в свой аккаунт</h1>`;
       document.querySelector(
         ".header__users-greeting-forma"
-      ).innerHTML = `<h1 class="header__users-greeting-forma">Войдите в свой аккаунт <br><span class="header__user-name"></span></h1>`;
+      ).innerHTML = `<h1 class="header__users-greeting-forma">Войдите в свой аккаунт</h1>`;
     }
     time--;
   };
